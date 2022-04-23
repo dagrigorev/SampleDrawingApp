@@ -94,5 +94,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SampleDrawing.Renderers\SampleDrawing.Renderers.csproj">
+      <Project>{E34DF948-C2A8-48F2-8545-136A8D352958}</Project>
+      <Name>SampleDrawing.Renderers</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

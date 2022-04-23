@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SampleDrawing.Renderers;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,17 +14,12 @@ namespace SampleDrawingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Random _primitiveRandomizer;
-        private readonly Stopwatch _watcher;
-
-        public int RandomPrimitivesCount => _primitiveRandomizer.Next() + 1;
+        AbstractRenderer _renderer;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            _primitiveRandomizer = new Random(0);
-            _watcher = new Stopwatch();
+            _renderer = new ContextRenderer(GeneralCanvas);
         }
 
         private void DrawX10_Click(object sender, RoutedEventArgs e)
@@ -47,85 +43,6 @@ namespace SampleDrawingApp
         }
 
         /// <summary>
-        /// Render primitives randomly on <see cref="GeneralCanvas"/>
-        /// </summary>
-        /// <param name="primitivesCount">Random primitives count</param>
-        private void Render(int primitivesCount)
-        {
-            if (primitivesCount <= 0)
-                throw new ArgumentException(nameof(primitivesCount));
-
-            GeneralCanvas.Children.Clear();
-            GeneralCanvas.Background = new SolidColorBrush(GetColorFromString("#000000"));
-
-            for(var i = 0; i < primitivesCount; i++)
-            {
-                var randomStartPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
-                var randomEndPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
-                var randomColor = GetRandomColor();
-
-                var randomPath = new Path
-                {
-                    Stroke = new SolidColorBrush(randomColor),
-                    StrokeThickness = _primitiveRandomizer.Next(1, 20),
-                    Data = new LineGeometry { StartPoint = randomStartPoint, EndPoint = randomEndPoint }
-                };
-
-                GeneralCanvas.Children.Add(randomPath);
-            }
-
-            Application.Current.Dispatcher.Invoke(
-                System.Windows.Threading.DispatcherPriority.Render,
-                new Action(() => { }));
-        }
-
-
-        /// <summary>
-        /// Render primitives randomly on <see cref="GeneralCanvas"/> by <see cref="DrawingContext"/>
-        /// </summary>
-        /// <param name="primitivesCount">Random primitives count</param>
-        private void RenderContext(int primitivesCount)
-        {
-            if (primitivesCount <= 0)
-                throw new ArgumentException(nameof(primitivesCount));
-
-            GeneralCanvas.Children.Clear();
-            GeneralCanvas.Background = new SolidColorBrush(GetColorFromString("#000000"));
-
-            var drawingVisual = new DrawingVisual();
-            var drawingContext = drawingVisual.RenderOpen();
-
-            for (var i = 0; i < primitivesCount; i++)
-            {
-                var randomStartPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
-                var randomEndPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
-                var randomColor = GetRandomColor();
-                
-                drawingContext.DrawLine(new Pen(new SolidColorBrush(randomColor), _primitiveRandomizer.Next(1, 20)), randomStartPoint, randomEndPoint);
-            }
-
-            drawingContext.Close();
-
-            // Render context on bitmap
-            var bmp = new RenderTargetBitmap(
-                pixelWidth: (int)GeneralCanvas.ActualWidth,
-                pixelHeight: (int)GeneralCanvas.ActualHeight,
-                dpiX: 0, dpiY: 0, pixelFormat: PixelFormats.Pbgra32);
-            bmp.Render(drawingVisual);
-
-            // Create image control from bitmap
-            Image image = new Image();
-            image.Source = bmp;
-
-            // Add bitmap to canvas
-            GeneralCanvas.Children.Add(image);
-
-            Application.Current.Dispatcher.Invoke(
-                System.Windows.Threading.DispatcherPriority.Render,
-                new Action(() => { }));
-        }
-
-        /// <summary>
         /// Runs and measures <see cref="Render(int)"/> method timings.
         /// </summary>
         /// <param name="testName">Test name</param>
@@ -134,39 +51,7 @@ namespace SampleDrawingApp
         {
             Title = testName;
 
-            _watcher.Reset();
-            _watcher.Start();
-
-            Render(primitivesCount);
-
-            _watcher.Stop();
-
-            Debug.WriteLine($"Testing {Title}. Elapsed: {_watcher.ElapsedMilliseconds}ms");
+            _renderer.RenderRandomly(primitivesCount, testName);
         }
-
-        /// <summary>
-        /// Returns <see cref="Color"/> from color code string.
-        /// </summary>
-        /// <param name="colorCode"></param>
-        /// <returns></returns>
-        private static Color GetColorFromString(string colorCode) => (Color)ColorConverter.ConvertFromString(colorCode);
-
-        /// <summary>
-        /// Returns random point
-        /// </summary>
-        /// <param name="maxWidth"></param>
-        /// <param name="maxHeight"></param>
-        /// <returns></returns>
-        private Point GetRandomPoint(double maxWidth, double maxHeight) => new Point(_primitiveRandomizer.Next((int)maxWidth), _primitiveRandomizer.Next((int)maxHeight));
-
-        /// <summary>
-        /// Returns random color
-        /// </summary>
-        /// <returns></returns>
-        private Color GetRandomColor() => Color.FromArgb(
-                    (byte)((10 + _primitiveRandomizer.Next(255)) % 255),
-                    (byte)_primitiveRandomizer.Next(255),
-                    (byte)_primitiveRandomizer.Next(255),
-                    (byte)_primitiveRandomizer.Next(255));
     }
 }

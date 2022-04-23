@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1927
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleDrawingApp", "SampleDrawingApp\SampleDrawingApp.csproj", "{D6C8BD70-1D73-4E2F-BBB9-6E3D546757F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleDrawing.Renderers", "SampleDrawing.Renderers\SampleDrawing.Renderers.csproj", "{E34DF948-C2A8-48F2-8545-136A8D352958}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D6C8BD70-1D73-4E2F-BBB9-6E3D546757F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6C8BD70-1D73-4E2F-BBB9-6E3D546757F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6C8BD70-1D73-4E2F-BBB9-6E3D546757F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E34DF948-C2A8-48F2-8545-136A8D352958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E34DF948-C2A8-48F2-8545-136A8D352958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E34DF948-C2A8-48F2-8545-136A8D352958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E34DF948-C2A8-48F2-8545-136A8D352958}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
