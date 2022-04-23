@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace SampleDrawingApp
@@ -71,6 +73,52 @@ namespace SampleDrawingApp
 
                 GeneralCanvas.Children.Add(randomPath);
             }
+
+            Application.Current.Dispatcher.Invoke(
+                System.Windows.Threading.DispatcherPriority.Render,
+                new Action(() => { }));
+        }
+
+
+        /// <summary>
+        /// Render primitives randomly on <see cref="GeneralCanvas"/> by <see cref="DrawingContext"/>
+        /// </summary>
+        /// <param name="primitivesCount">Random primitives count</param>
+        private void RenderContext(int primitivesCount)
+        {
+            if (primitivesCount <= 0)
+                throw new ArgumentException(nameof(primitivesCount));
+
+            GeneralCanvas.Children.Clear();
+            GeneralCanvas.Background = new SolidColorBrush(GetColorFromString("#000000"));
+
+            var drawingVisual = new DrawingVisual();
+            var drawingContext = drawingVisual.RenderOpen();
+
+            for (var i = 0; i < primitivesCount; i++)
+            {
+                var randomStartPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
+                var randomEndPoint = GetRandomPoint(GeneralCanvas.ActualWidth, GeneralCanvas.ActualHeight);
+                var randomColor = GetRandomColor();
+                
+                drawingContext.DrawLine(new Pen(new SolidColorBrush(randomColor), _primitiveRandomizer.Next(1, 20)), randomStartPoint, randomEndPoint);
+            }
+
+            drawingContext.Close();
+
+            // Render context on bitmap
+            var bmp = new RenderTargetBitmap(
+                pixelWidth: (int)GeneralCanvas.ActualWidth,
+                pixelHeight: (int)GeneralCanvas.ActualHeight,
+                dpiX: 0, dpiY: 0, pixelFormat: PixelFormats.Pbgra32);
+            bmp.Render(drawingVisual);
+
+            // Create image control from bitmap
+            Image image = new Image();
+            image.Source = bmp;
+
+            // Add bitmap to canvas
+            GeneralCanvas.Children.Add(image);
 
             Application.Current.Dispatcher.Invoke(
                 System.Windows.Threading.DispatcherPriority.Render,
