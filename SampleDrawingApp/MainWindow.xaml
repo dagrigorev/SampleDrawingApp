@@ -1,0 +1,20 @@
+﻿<Window x:Class="SampleDrawingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SampleDrawingApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="620" Width="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <Button Content="x10" x:Name="DrawX10" Margin="3 0 3 0" Click="DrawX10_Click"/>
+                <Button Content="x100" x:Name="DrawX100" Margin="3 0 3 0" Click="DrawX100_Click"/>
+                <Button Content="x1k" x:Name="DrawX1k" Margin="3 0 3 0" Click="DrawX1k_Click"/>
+                <Button Content="x10k" x:Name="DrawX10k" Margin="3 0 3 0" Click="DrawX10k_Click"/>
+            </StackPanel>
+            <Canvas x:Name="GeneralCanvas" Width="800" Height="600" />
+        </StackPanel>
+    </Grid>
+</Window>
