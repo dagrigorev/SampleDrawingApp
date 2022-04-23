@@ -45,9 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractRenderer.cs" />
-    <Compile Include="ContextRenderer.cs" />
-    <Compile Include="DirectCanvasRenderer.cs" />
+    <Compile Include="Core\ContextRenderer.cs" />
+    <Compile Include="Core\DirectCanvasRenderer.cs" />
+    <Compile Include="PrimitiveRenderers\CirclesRenderer.cs" />
+    <Compile Include="PrimitiveRenderers\LinesRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\RandomPrimitivesRenderer.cs" />
+    <Compile Include="PrimitiveRenderers\RectsRenderer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

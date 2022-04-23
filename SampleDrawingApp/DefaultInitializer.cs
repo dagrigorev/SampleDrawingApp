@@ -1,5 +1,6 @@
 ﻿using SampleDrawing.IoC;
 using SampleDrawing.Renderers;
+using SampleDrawing.Renderers.PrimitiveRenderers;
 using System.Windows.Controls;
 
 namespace SampleDrawingApp
@@ -13,6 +14,7 @@ namespace SampleDrawingApp
         private readonly IServiceContainer _container;
         private readonly Canvas _canvas;
 
+        /// <inheritdoc />
         public IServiceContainer Container => _container;
 
         public DefaultRendererInitializer(Canvas canvas)
@@ -21,14 +23,16 @@ namespace SampleDrawingApp
             _canvas = canvas;
         }
 
+        /// <inheritdoc />
         public void RegisterDependencies()
         {
             _container.RegsiterService<Canvas>(_canvas);
-            _container.RegsiterService<AbstractRenderer>(new ContextRenderer(_canvas));
+            _container.RegsiterService<AbstractRenderer>(new CirclesRenderer(_canvas));
         }
 
         public static IApplicationInitializer CreateInitializer(Canvas canvas) => new DefaultRendererInitializer(canvas);
 
+        /// <inheritdoc />
         public IApplicationInitializer Initialize()
         {
             RegisterDependencies();

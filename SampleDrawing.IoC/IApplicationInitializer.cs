@@ -8,7 +8,7 @@ namespace SampleDrawing.IoC
     public interface IApplicationInitializer
     {
         /// <summary>
-        /// Registered services provider
+        /// Registered services container
         /// </summary>
         IServiceContainer Container { get; }
 
