@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SampleDrawingApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="620" Width="800">
+        Title="WPF Primitives renderer" Height="620" Width="800">
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
