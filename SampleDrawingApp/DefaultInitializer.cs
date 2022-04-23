@@ -27,7 +27,7 @@ namespace SampleDrawingApp
         public void RegisterDependencies()
         {
             _container.RegsiterService<Canvas>(_canvas);
-            _container.RegsiterService<AbstractRenderer>(new CirclesRenderer(_canvas));
+            _container.RegsiterService<AbstractRenderer>(new MixedPrimitivesRenderer(_canvas));
         }
 
         public static IApplicationInitializer CreateInitializer(Canvas canvas) => new DefaultRendererInitializer(canvas);

@@ -9,10 +9,11 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
-                <Button Content="x10" x:Name="DrawX10" Margin="3 0 3 0" Click="DrawX10_Click"/>
-                <Button Content="x100" x:Name="DrawX100" Margin="3 0 3 0" Click="DrawX100_Click"/>
-                <Button Content="x1k" x:Name="DrawX1k" Margin="3 0 3 0" Click="DrawX1k_Click"/>
-                <Button Content="x10k" x:Name="DrawX10k" Margin="3 0 3 0" Click="DrawX10k_Click"/>
+                <Label Content="Primitives count: " />
+                <Button Content="10" x:Name="DrawX10" Margin="3 5 3 5" Click="DrawX10_Click"/>
+                <Button Content="100" x:Name="DrawX100" Margin="3 5 3 5" Click="DrawX100_Click"/>
+                <Button Content="1000" x:Name="DrawX1k" Margin="3 5 3 5" Click="DrawX1k_Click"/>
+                <Button Content="10 000" x:Name="DrawX10k" Margin="3 5 3 5" Click="DrawX10k_Click"/>
             </StackPanel>
             <Canvas x:Name="GeneralCanvas" Width="800" Height="600" />
         </StackPanel>
