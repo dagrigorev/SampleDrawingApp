@@ -1,4 +1,5 @@
-﻿using SampleDrawing.Renderers;
+﻿using SampleDrawing.IoC;
+using SampleDrawing.Renderers;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -14,12 +15,14 @@ namespace SampleDrawingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        AbstractRenderer _renderer;
+        private readonly IApplicationInitializer _applicationInitializer; 
 
         public MainWindow()
         {
             InitializeComponent();
-            _renderer = new ContextRenderer(GeneralCanvas);
+            _applicationInitializer = DefaultRendererInitializer
+                .CreateInitializer(GeneralCanvas)
+                .Initialize();
         }
 
         private void DrawX10_Click(object sender, RoutedEventArgs e)
@@ -51,7 +54,9 @@ namespace SampleDrawingApp
         {
             Title = testName;
 
-            _renderer.RenderRandomly(primitivesCount, testName);
+            _applicationInitializer
+                .Container.GetService<AbstractRenderer>()
+                .RenderRandomly(primitivesCount, testName);
         }
     }
 }

@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DefaultInitializer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -95,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SampleDrawing.IoC\SampleDrawing.IoC.csproj">
+      <Project>{8E3DF523-DA8B-4D59-9D91-AA90CE15D4B1}</Project>
+      <Name>SampleDrawing.IoC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SampleDrawing.Renderers\SampleDrawing.Renderers.csproj">
       <Project>{E34DF948-C2A8-48F2-8545-136A8D352958}</Project>
       <Name>SampleDrawing.Renderers</Name>
