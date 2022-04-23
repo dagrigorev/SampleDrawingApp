@@ -4,7 +4,7 @@ using System.Windows.Media;
 
 namespace SampleDrawing.Renderers.PrimitiveRenderers
 {
-    public class RectsRenderer : RandomPrimitivesRenderer
+    public class RectsRenderer : PrimitivesRenderer
     {
         public RectsRenderer(Canvas canvas) : base(canvas)
         {

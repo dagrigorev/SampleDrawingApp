@@ -7,13 +7,13 @@ using System.Windows.Shapes;
 
 namespace SampleDrawing.Renderers
 {
-    public abstract class RandomPrimitivesRenderer : DirectCanvasRenderer
+    public abstract class PrimitivesRenderer : DirectCanvasRenderer
     {
         private readonly Canvas _renderCanvas;
 
         public Canvas RenderCanvas => _renderCanvas;
 
-        public RandomPrimitivesRenderer(Canvas canvas) : base(canvas)
+        public PrimitivesRenderer(Canvas canvas) : base(canvas)
         {
             _renderCanvas = canvas;
         }

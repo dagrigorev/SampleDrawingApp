@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace SampleDrawing.Renderers.PrimitiveRenderers
 {
-    public class LinesRenderer : RandomPrimitivesRenderer
+    public class LinesRenderer : PrimitivesRenderer
     {
         public LinesRenderer(Canvas canvas) : base(canvas)
         {

@@ -6,13 +6,13 @@ namespace SampleDrawing.Renderers.PrimitiveRenderers
     /// <summary>
     /// Mutiple primitives renderer
     /// </summary>
-    public class MixedPrimitivesRenderer : RandomPrimitivesRenderer
+    public class MixedPrimitivesRenderer : PrimitivesRenderer
     {
-        private readonly RandomPrimitivesRenderer[] _primitivesRenderers;
+        private readonly PrimitivesRenderer[] _primitivesRenderers;
 
         public MixedPrimitivesRenderer(Canvas canvas) : base(canvas)
         {
-            _primitivesRenderers = new RandomPrimitivesRenderer[] {
+            _primitivesRenderers = new PrimitivesRenderer[] {
                 new CirclesRenderer(canvas),
                 new RectsRenderer(canvas),
                 new LinesRenderer(canvas)

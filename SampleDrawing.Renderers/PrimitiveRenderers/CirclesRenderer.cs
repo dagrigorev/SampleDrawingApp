@@ -3,7 +3,7 @@ using System.Windows.Media;
 
 namespace SampleDrawing.Renderers.PrimitiveRenderers
 {
-    public class CirclesRenderer : RandomPrimitivesRenderer
+    public class CirclesRenderer : PrimitivesRenderer
     {
         public CirclesRenderer(Canvas canvas) : base(canvas)
         {
