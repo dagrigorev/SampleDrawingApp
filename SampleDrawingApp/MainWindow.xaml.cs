@@ -54,7 +54,7 @@ namespace SampleDrawingApp
                 throw new ArgumentException(nameof(primitivesCount));
 
             GeneralCanvas.Children.Clear();
-            GeneralCanvas.Background = new SolidColorBrush(GetColorFromString("#003366"));
+            GeneralCanvas.Background = new SolidColorBrush(GetColorFromString("#000000"));
 
             for(var i = 0; i < primitivesCount; i++)
             {
