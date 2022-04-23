@@ -1,6 +1,8 @@
-﻿using SampleDrawing.IoC;
+﻿using JetBrains.Annotations;
+using SampleDrawing.IoC;
 using SampleDrawing.Renderers;
 using SampleDrawing.Renderers.PrimitiveRenderers;
+using System;
 using System.Windows.Controls;
 
 namespace SampleDrawingApp
@@ -17,8 +19,16 @@ namespace SampleDrawingApp
         /// <inheritdoc />
         public IServiceContainer Container => _container;
 
-        public DefaultRendererInitializer(Canvas canvas)
+        /// <summary>
+        /// Parametrized constructor
+        /// </summary>
+        /// <param name="canvas"></param>
+        /// <exception cref="ArgumentNullException" />
+        public DefaultRendererInitializer([ItemNotNull] Canvas canvas)
         {
+            if (canvas is null)
+                throw new ArgumentNullException(nameof(canvas));
+
             _container = new DefaultServiceProvider();
             _canvas = canvas;
         }
@@ -30,7 +40,14 @@ namespace SampleDrawingApp
             _container.RegsiterService<AbstractRenderer>(new MixedPrimitivesRenderer(_canvas));
         }
 
-        public static IApplicationInitializer CreateInitializer(Canvas canvas) => new DefaultRendererInitializer(canvas);
+        /// <summary>
+        /// Creates new instance of default initializer
+        /// </summary>
+        /// <param name="canvas">Required argument</param>
+        /// <returns>instance of <see cref="DefaultRendererInitializer"/></returns>
+        /// <exception cref="ArgumentNullException" />
+        [NotNull]
+        public static IApplicationInitializer CreateInitializer([ItemNotNull] Canvas canvas) => new DefaultRendererInitializer(canvas);
 
         /// <inheritdoc />
         public IApplicationInitializer Initialize()

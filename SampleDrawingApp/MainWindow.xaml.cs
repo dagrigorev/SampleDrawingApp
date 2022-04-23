@@ -3,6 +3,8 @@ using SampleDrawing.Renderers;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
+
 namespace SampleDrawingApp
 {
     /// <summary>
@@ -10,34 +12,58 @@ namespace SampleDrawingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IApplicationInitializer _applicationInitializer; 
+        private readonly IApplicationInitializer _entryPoint; 
 
         public MainWindow()
         {
             InitializeComponent();
-            _applicationInitializer = DefaultRendererInitializer
+            _entryPoint = DefaultRendererInitializer
                 .CreateInitializer(GeneralCanvas)
                 .Initialize();
         }
 
+        /// <summary>
+        /// Button clicked event handler.
+        /// Starts drawing tests on <see cref="GeneralCanvas"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DrawX10_Click(object sender, RoutedEventArgs e)
         {
-            TestRender($"Drawing {DrawX10.Content} primitives", 10);
+            TestRender($"Drawing {AsButton(sender).Content} primitives", 10);
         }
 
+        /// <summary>
+        /// Button clicked event handler.
+        /// Starts drawing tests on <see cref="GeneralCanvas"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DrawX100_Click(object sender, RoutedEventArgs e)
         {
-            TestRender($"Drawing {DrawX100.Content} primitives", 100);
+            TestRender($"Drawing {AsButton(sender).Content} primitives", 100);
         }
 
+        /// <summary>
+        /// Button clicked event handler.
+        /// Starts drawing tests on <see cref="GeneralCanvas"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DrawX1k_Click(object sender, RoutedEventArgs e)
         {
-            TestRender($"Drawing {DrawX1k.Content} primitives", 1_000);
+            TestRender($"Drawing {AsButton(sender).Content} primitives", 1_000);
         }
 
+        /// <summary>
+        /// Button clicked event handler.
+        /// Starts drawing tests on <see cref="GeneralCanvas"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DrawX10k_Click(object sender, RoutedEventArgs e)
         {
-            TestRender($"Drawing {DrawX10k.Content} primitives", 10_000);
+            TestRender($"Drawing {AsButton(sender).Content} primitives", 10_000);
         }
 
         /// <summary>
@@ -49,9 +75,12 @@ namespace SampleDrawingApp
         {
             Title = testName;
 
-            _applicationInitializer
+            _entryPoint
                 .Container.GetService<AbstractRenderer>()
                 .RenderRandomly(primitivesCount, testName);
         }
+
+
+        static Button AsButton(object sender) => (Button)sender;
     }
 }
